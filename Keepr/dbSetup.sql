@@ -21,6 +21,38 @@ CREATE TABLE
     ) default charset utf8 COMMENT '';
 
 CREATE TABLE
+    IF NOT EXISTS vaults(
+        id INT AUTO_INCREMENT NOT NULL PRIMARY KEY,
+        creatorId VARCHAR(255) NOT NULL,
+        Foreign Key (creatorId) REFERENCES accounts(id),
+        name VARCHAR(255) NOT NULL,
+        description VARCHAR(255) NOT NULL,
+        img VARCHAR(1000) NOT NULL,
+        isPrivate BOOLEAN DEFAULT FALSE
+    ) default charset utf8 COMMENT '';
+
+INSERT INTO
+    vaults (
+        creatorId,
+        name,
+        description,
+        img,
+        isPrivate
+    )
+VALUES (
+        '6532cac55509c96aedb89ba1',
+        'name',
+        'description',
+        'img',
+        False
+    );
+
+SELECT a.*, v.*
+FROM vaults v
+    JOIN accounts a ON a.id = v.creatorId
+WHERE v.id = LAST_INSERT_ID();
+
+CREATE TABLE
     IF NOT EXISTS vaultkeeps(
         id INT AUTO_INCREMENT NOT NULL PRIMARY KEY,
         creatorId VARCHAR(255) NOT NULL,
@@ -29,15 +61,4 @@ CREATE TABLE
         Foreign Key (vaultId) REFERENCES vaults(id),
         keepId INT NOT NULL,
         Foreign Key (keepId) REFERENCES keeps(id)
-    ) default charset utf8 COMMENT '';
-
-CREATE TABLE
-    IF NOT EXISTS vaults(
-        id int AUTO AUTO_INCREMENT NOT NULL PRIMARY KEY,
-        creatorId VARCHAR(255) NOT NULL,
-        Foreign Key (creatorId) REFERENCES accounts(id),
-        name VARCHAR(255) NOT NULL,
-        description VARCHAR(255) NOT NULL,
-        img VARCHAR(1000) NOT NULL,
-        isPrivate BOOLEAN DEFAULT FALSE
     ) default charset utf8 COMMENT '';
