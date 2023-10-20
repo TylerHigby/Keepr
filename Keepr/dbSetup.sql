@@ -16,9 +16,7 @@ CREATE TABLE
         description VARCHAR(500) NOT NULL,
         img VARCHAR(1000) NOT NULL,
         views INT DEFAULT 0,
-        -- //FIXME - 
-        kept INT NOT NULL,
-        Foreign Key (kept) REFERENCES vaultkeeps(id),
+        kept INT DEFAULT 0,
         Foreign Key (creatorId) REFERENCES accounts(id) ON DELETE CASCADE
     ) default charset utf8 COMMENT '';
 
