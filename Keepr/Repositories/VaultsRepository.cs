@@ -1,6 +1,7 @@
 
 
 
+
 namespace Keepr.Repositories;
 public class VaultsRepository
 {
@@ -32,6 +33,7 @@ public class VaultsRepository
     }, vaultData).FirstOrDefault();
     return newVault;
   }
+
 
   internal Vault GetVaultById(int vaultId)
   {
@@ -67,6 +69,13 @@ public class VaultsRepository
   //   ;";
   //   Vault vault = _db.Query<Vault>(sql, original).FirstOrDefault();
   //   return vault;
+  // }
+
+  // //FIXME - 
+  // internal void DeleteVault(int vaultId)
+  // {
+  //   string sql = "DELETE FROM vaults WHERE id = @vaultId";
+  //   int rowsAffected = _db.Execute(sql, new { vaultId });
   // }
 
 

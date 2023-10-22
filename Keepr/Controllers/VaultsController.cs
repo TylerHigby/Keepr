@@ -61,4 +61,23 @@ public class VaultsController : ControllerBase
   // }
 
 
+  // //FIXME - 
+  //   [Authorize]
+  //   [HttpDelete("{vaultId}")]
+  //   public async Task<ActionResult<Vault>> DeleteVault(int vaultId)
+  //   {
+  //     try
+  //     {
+  //       Account userInfo = await _auth0.GetUserInfoAsync<Account>(HttpContext);
+  //       Vault vault = _vaultsService.DeleteVault(vaultId, userInfo.Id);
+  //       return vault;
+  //     }
+  //     catch (Exception e)
+  //     {
+  //       return BadRequest(e.Message);
+  //     }
+  //   }
+
+
+
 }

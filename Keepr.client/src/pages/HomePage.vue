@@ -1,11 +1,22 @@
 <template>
-<h1>welcome to keepr</h1>
   <div class="container">
+
+<!-- //ANCHOR - CREATE A KEEP -->
+    <section class="row">
+      <KeepForm/>
+    </section>
+
+
+
+
+<!-- //ANCHOR - Keep Cards -->
     <section class="row">
       <div v-for="keep in keeps" :key="keep.id" class="col-12 col-md-3">
         <KeepCard :keep="keep"/>
       </div>
     </section>
+
+
   </div>
 </template>
 
@@ -15,6 +26,7 @@ import Pop from "../utils/Pop.js";
 import { keepsService } from "../services/KeepsService.js";
 import { AppState } from "../AppState.js";
 import KeepCard from "../components/KeepCard.vue";
+import KeepForm from "../components/KeepForm.vue";
 
 
 export default {
@@ -32,10 +44,11 @@ export default {
         }
         return {
             user: computed(() => AppState.user),
-            keeps: computed(() => AppState.keeps)
+            keeps: computed(() => AppState.keeps),
+            activeKeep: computed(()=> AppState.activeKeep)
         };
     },
-    components: { KeepCard }
+    components: { KeepCard, KeepForm }
 }
 </script>
 

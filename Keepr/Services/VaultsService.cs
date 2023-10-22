@@ -1,6 +1,7 @@
 
 
 
+
 namespace Keepr.Services;
 public class VaultsService
 {
@@ -24,10 +25,10 @@ public class VaultsService
 
 
 
-  //FIXME - 
+  // //FIXME - 
   // internal Vault UpdateVault(Vault updateData, int vaultId, string userId)
   // {
-  //   Vault original = this.GetVaultById(updateData.Id);
+  //   Vault original = this.GetVaultById(vaultId, userId);
   //   if (original.CreatorId != userId) throw new Exception("that isn't yours to edit");
   //   original.Name = updateData.Name != null ? updateData.Name : original.Name;
   //   original.Description = updateData.Description != null ? updateData.Description : original.Description;
@@ -36,6 +37,15 @@ public class VaultsService
   //   _repo.UpdateVault(original);
   //   return original;
   // }
+
+  // //FIXME - 
+  //   internal Vault DeleteVault(int vaultId, string id)
+  //   {
+  //     Vault vault = this.GetVaultById(vaultId);
+  //     if (vault.CreatorId != id) throw new Exception("That's not your vault");
+  //     _repo.DeleteVault(vaultId);
+  //     return vault;
+  //   }
 
 
 
