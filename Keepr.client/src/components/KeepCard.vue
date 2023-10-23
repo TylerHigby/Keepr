@@ -1,11 +1,11 @@
 <template>
   <section @click="getKeepDetails()" data-bs-toggle="modal" data-bs-target="#keep-modal">
     <div class="card elevation-5 my-3">
+      <img :src="keep.img" alt="" class="keepCardImage">
       <div class="row">
         <h2 class="col-6">{{ keep.name }}</h2>
-        <img :src="keep.creator.picture" alt="" class="col-6">
+        <img :src="keep.creator.picture" alt="" class="col-6 ProfPic">
       </div>
-      <img :src="keep.img" alt="" class="keepCardImage">
     </div>
   </section>
 </template>
@@ -36,11 +36,15 @@ setup(props) {
 
 
 <style>
-.keepCardImage{
+/* .keepCardImage{
   width: 100%;
   aspect-ratio: 1/1;
   object-fit: cover;
   object-position: center;
+} */
+
+.ProfPic{
+  border-radius: 50%;
 }
 
 </style>

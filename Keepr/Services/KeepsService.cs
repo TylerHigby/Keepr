@@ -5,9 +5,11 @@ namespace Keepr.Services;
 public class KeepsService
 {
   private readonly KeepsRepository _repo;
-  public KeepsService(KeepsRepository repo)
+  private readonly VaultsService _vaultsService;
+  public KeepsService(KeepsRepository repo, VaultsService vaultsService)
   {
     _repo = repo;
+    _vaultsService = vaultsService;
   }
 
   internal Keep CreateKeep(Keep keepData)
@@ -47,5 +49,12 @@ public class KeepsService
     if (keep.CreatorId != id) throw new Exception("That isn't yours");
     _repo.DeleteKeep(keepId);
     return keep;
+  }
+
+  internal List<Keep> GetKeepsInVault(int vaultId, string userId)
+  {
+    Vault vault = _vaultsService.GetVaultById(vaultId, userId);
+    List<Keep> keeps = _repo.GetKeepsInVault(vaultId);
+    return keeps;
   }
 }

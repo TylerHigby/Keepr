@@ -31,27 +31,6 @@ CREATE TABLE
         isPrivate BOOLEAN DEFAULT FALSE
     ) default charset utf8 COMMENT '';
 
-INSERT INTO
-    vaults (
-        creatorId,
-        name,
-        description,
-        img,
-        isPrivate
-    )
-VALUES (
-        '6532cac55509c96aedb89ba1',
-        'name',
-        'description',
-        'img',
-        False
-    );
-
-SELECT a.*, v.*
-FROM vaults v
-    JOIN accounts a ON a.id = v.creatorId
-WHERE v.id = LAST_INSERT_ID();
-
 CREATE TABLE
     IF NOT EXISTS vaultkeeps(
         id INT AUTO_INCREMENT NOT NULL PRIMARY KEY,

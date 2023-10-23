@@ -9,4 +9,5 @@ public class Keep
   public int Views { get; set; }
   public int Kept { get; set; }
   public Account Creator { get; set; }
+  public Vault Vault { get; set; }
 }

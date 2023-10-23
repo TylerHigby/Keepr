@@ -54,29 +54,28 @@ public class VaultsRepository
   }
 
 
-  //FIXME - 
-  // internal Vault UpdateVault(Vault original)
-  // {
-  //   string sql = @"
-  //   UPDATE vaults
-  //   SET
-  //       name = @name,
-  //       description = @description,
-  //       img = @img,
-  //       isPrivate = @isPrivate
-  //       WHERE id = @id;
-  //       SELECT * FROM recipes WHERE id = @id;
-  //   ;";
-  //   Vault vault = _db.Query<Vault>(sql, original).FirstOrDefault();
-  //   return vault;
-  // }
+  internal Vault UpdateVault(Vault original)
+  {
+    string sql = @"
+        UPDATE vaults
+        SET
+        name = @name,
+        description = @description,
+        img = @img,
+        isPrivate = @isPrivate
+        WHERE id = @id;
+        SELECT * FROM vaults WHERE id = @id;
+    ;";
+    Vault vault = _db.Query<Vault>(sql, original).FirstOrDefault();
+    return vault;
+  }
 
-  // //FIXME - 
-  // internal void DeleteVault(int vaultId)
-  // {
-  //   string sql = "DELETE FROM vaults WHERE id = @vaultId";
-  //   int rowsAffected = _db.Execute(sql, new { vaultId });
-  // }
+
+  internal void DeleteVault(int vaultId)
+  {
+    string sql = "DELETE FROM vaults WHERE id = @vaultId";
+    int rowsAffected = _db.Execute(sql, new { vaultId });
+  }
 
 
 }

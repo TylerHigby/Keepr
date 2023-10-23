@@ -8,12 +8,14 @@
    <footer class="bg-dark text-light">
     Made with 💖 by CodeWorks
   </footer>
+  <KeepModal/>
 </template>
 
 <script>
 import { computed } from 'vue'
 import { AppState } from './AppState'
 import Navbar from './components/Navbar.vue'
+import KeepModal from "./components/KeepModal.vue"
 
 export default {
   setup() {
@@ -21,7 +23,7 @@ export default {
       appState: computed(() => AppState)
     }
   },
-  components: { Navbar }
+  components: { Navbar, KeepModal }
 }
 </script>
 <style lang="scss">

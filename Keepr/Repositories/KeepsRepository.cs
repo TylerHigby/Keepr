@@ -3,6 +3,7 @@
 
 
 
+
 namespace Keepr.Repositories;
 public class KeepsRepository
 {
@@ -91,6 +92,30 @@ public class KeepsRepository
   {
     string sql = "DELETE FROM keeps WHERE id = @keepId";
     int rowsAffected = _db.Execute(sql, new { keepId });
+  }
+
+  internal List<Keep> GetKeepsInVault(int vaultId)
+  {
+    string sql = @"
+        SELECT
+        keeps.*,
+        keepCreator.*,
+        vaults.*,
+        vaultCreator.*
+        FROM keeps
+        JOIN accounts keepCreator ON keepCreator.id = keeps.creatorId
+        JOIN vaults ON vaults.id = keeps.vaultId
+        JOIN accounts vaultCreator ON vaultCreator.id = vaults.creatorId
+        WHERE keeps.vaultId = @vaultId
+        ;";
+    List<Keep> keeps = _db.Query<Keep, Account, Vault, Account, Keep>(sql, (keep, keepCreator, vault, vaultCreator) =>
+    {
+      keep.Creator = keepCreator;
+      vault.Creator = vaultCreator;
+      keep.Vault = vault;
+      return keep;
+    }, new { vaultId }).ToList();
+    return keeps;
   }
 }
 

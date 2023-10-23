@@ -23,6 +23,15 @@ class KeepsService{
     AppState.keeps.push(new Keep(res.data))
   }
 
+  // async deleteKeep(keepId){
+  //   const res = await api.delete(`api/keeps/${keepId}`)
+  //   logger.log('deleting keep', res.data)
+  //   let indexToRemove = AppState.activeKeep.findIndex(keep => keep.id == keepId)
+  //   AppState.activeKeep.splice(indexToRemove, 1)
+  // }
+
+
+
 }
 
 export const keepsService = new KeepsService
