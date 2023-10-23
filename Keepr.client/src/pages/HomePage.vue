@@ -11,7 +11,7 @@
 
 <!-- //ANCHOR - Keep Cards -->
     <section class="row">
-      <div v-for="keep in keeps" :key="keep.id" class="col-12 col-md-3">
+      <div v-for="keep in keeps" :key="keep.id" class="col-6 col-md-3">
         <KeepCard :keep="keep"/>
       </div>
     </section>

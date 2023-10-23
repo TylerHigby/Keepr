@@ -20,8 +20,8 @@
               <img class="img-fluid" :src="activeKeep.img" alt="">
             </div>
             <div class="col-12 col-md-6 row">
-              <p class="col-6 text-center"><i class="mdi mdi-eye"></i> {{activeKeep.views}}</p>
-              <p class="col-6 text-center"><i class="mdi mdi-alpha-k-box-outline"></i> {{activeKeep.kept}}</p>
+              <p class="col-6 text-center fs-4"><i class="mdi mdi-eye"></i> {{activeKeep.views}}</p>
+              <p class="col-6 text-center fs-4"><i class="mdi mdi-alpha-k-box-outline"></i> {{activeKeep.kept}}</p>
               <h3 class="text-center">{{ activeKeep.name }}</h3>
               <p>{{ activeKeep.description }}</p>
               <p class="col-6 text-center">user vaults</p>
