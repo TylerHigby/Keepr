@@ -1,15 +1,18 @@
 
 
 
+
 namespace Keepr.Services
 {
   public class VaultKeepsService
   {
     private readonly VaultKeepsRepository _repo;
+    private readonly VaultsService _vaultsService;
     private readonly VaultsRepository _vrepo;
-    public VaultKeepsService(VaultKeepsRepository repo, VaultsRepository vrepo)
+    public VaultKeepsService(VaultKeepsRepository repo, VaultsService vaultsService, VaultsRepository vrepo)
     {
       _repo = repo;
+      _vaultsService = vaultsService;
       _vrepo = vrepo;
     }
 
@@ -18,6 +21,13 @@ namespace Keepr.Services
       VaultKeep vaultKeep = _repo.CreateVaultKeep(vaultKeepData);
       return vaultKeep;
     }
+
+    // internal List<AltKeep> GetKeepsInVault(int vaultId, string id)
+    // {
+    //   Vault vault = _vaultsService.GetVaultById(vaultId, id);
+    //   List<AltKeep> vaultKeeps = _repo.GetKeepsInVault(vaultId);
+    //   return vaultKeeps;
+    // }
 
 
     // internal List<AccountVaultKeepsViewModel> GetVaultKeepsByVaultId(int vaultId)

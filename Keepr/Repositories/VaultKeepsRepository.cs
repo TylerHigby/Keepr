@@ -1,6 +1,7 @@
 
 
 
+
 namespace Keepr.Repositories
 {
   public class VaultKeepsRepository
@@ -27,6 +28,26 @@ namespace Keepr.Repositories
       vaultKeepData.Id = lastInsertId;
       return vaultKeepData;
     }
+
+    // internal List<AltKeep> GetKeepsInVault(int vaultId)
+    // {
+    //   string sql = @"
+    //         SELECT
+    //         vaultKeeps.*,
+    //         keeps.*,
+    //         accounts.*
+    //         FROM vaultKeeps
+    //         JOIN accounts ON accounts.id = keeps.creatorId
+    //         WHERE vaultKeeps.vaultId = vaultId
+    //         ;";
+    //   List<AltKeep> vaultKeeps = _db.Query<VaultKeep, AltKeep, Profile, AltKeep>(sql, (vaultKeep, altKeep, profile) =>
+    //   {
+    //     altKeep.VaultKeepId = vaultKeep.Id;
+    //     altKeep.Creator = profile;
+    //     return altKeep;
+    //   }, new { vaultId }).ToList();
+    //   return vaultKeeps;
+    // }
 
 
     // internal VaultKeep getVaultKeepById(int vaultKeepId)

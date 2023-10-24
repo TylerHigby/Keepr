@@ -1,15 +1,6 @@
 namespace Keepr.Models;
 
-public class Account
+public class Account : Profile
 {
-  public string Id { get; set; }
-  public string Name { get; set; }
   public string Email { get; set; }
-  public string Picture { get; set; }
 }
-
-// public class AccountVaultKeepsViewModel : Account
-// {
-//   public int VaultKeepId { get; set; }
-//   public int VaultId { get; set; }
-// }

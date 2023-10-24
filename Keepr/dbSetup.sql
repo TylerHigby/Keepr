@@ -24,7 +24,7 @@ CREATE TABLE
     IF NOT EXISTS vaults(
         id INT AUTO_INCREMENT NOT NULL PRIMARY KEY,
         creatorId VARCHAR(255) NOT NULL,
-        Foreign Key (creatorId) REFERENCES accounts(id),
+        Foreign Key (creatorId) REFERENCES accounts(id) ON DELETE CASCADE,
         name VARCHAR(255) NOT NULL,
         description VARCHAR(255) NOT NULL,
         img VARCHAR(1000) NOT NULL,

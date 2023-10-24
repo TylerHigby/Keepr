@@ -1,3 +1,4 @@
+
 namespace Keepr.Services
 {
   public class ProfilesService
@@ -8,9 +9,14 @@ namespace Keepr.Services
       _repo = repo;
     }
 
-
-
-
-
+    internal Profile GetProfile(string profileId)
+    {
+      Profile profile = _repo.GetProfile(profileId);
+      if (profile == null)
+      {
+        throw new Exception("No profile with that Id");
+      }
+      return profile;
+    }
   }
 }

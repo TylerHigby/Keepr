@@ -2,6 +2,8 @@
 
 
 
+
+
 namespace Keepr.Repositories;
 public class VaultsRepository
 {
@@ -77,7 +79,30 @@ public class VaultsRepository
     int rowsAffected = _db.Execute(sql, new { vaultId });
   }
 
+  internal List<Vault> GetProfileVaults(string profileId)
+  {
+    string sql = @"
+        SELECT
+        *
+        FROM vaults
+        WHERE creatorId = @profileId
+        ;";
+    List<Vault> vaults = _db.Query<Vault>(sql, new { profileId }).ToList();
+    return vaults;
+  }
 
+  internal List<Vault> GetAccountVaults(string id)
+  {
+    string sql = @"
+        SELECT
+        *
+        FROM
+        vaults
+        WHERE creatorId = @id
+        ;";
+    List<Vault> vaults = _db.Query<Vault>(sql, new { id }).ToList();
+    return vaults;
+  }
 }
 
 

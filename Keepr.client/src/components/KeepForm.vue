@@ -21,6 +21,7 @@
 import { ref } from "vue";
 import Pop from "../utils/Pop.js";
 import { keepsService } from "../services/KeepsService.js";
+import { Modal } from "bootstrap";
 
 
 const keepData = ref({})
@@ -28,6 +29,7 @@ const keepData = ref({})
 async function createKeep(){
   try {
     await keepsService.createKeep(keepData.value)
+    Modal.getOrCreateInstance('#CreateKeepForm').hide()
     Pop.success("Keep Created!")
   } catch (error) {
     Pop.error(error)

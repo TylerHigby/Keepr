@@ -9,6 +9,8 @@
     Made with 💖 by CodeWorks
   </footer>
   <KeepModal/>
+  <KeepFormModal/>
+  <VaultFormModal/>
 </template>
 
 <script>
@@ -16,6 +18,8 @@ import { computed } from 'vue'
 import { AppState } from './AppState'
 import Navbar from './components/Navbar.vue'
 import KeepModal from "./components/KeepModal.vue"
+import KeepFormModal from "./components/KeepFormModal.vue"
+import VaultFormModal from "./components/VaultFormModal.vue"
 
 export default {
   setup() {
@@ -23,7 +27,7 @@ export default {
       appState: computed(() => AppState)
     }
   },
-  components: { Navbar, KeepModal }
+  components: { Navbar, KeepModal, KeepFormModal }
 }
 </script>
 <style lang="scss">

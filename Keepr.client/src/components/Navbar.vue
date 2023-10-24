@@ -12,9 +12,21 @@
     <div class="collapse navbar-collapse" id="navbarText">
       <ul class="navbar-nav me-auto">
         <li>
-          <router-link :to="{ name: 'About' }" class="btn text-success lighten-30 selectable text-uppercase">
-            About
-          </router-link>
+<!-- //ANCHOR - CREATE BUTTON -->
+          <div class="dropdown">
+            <button class="btn btn-success" type="button" id="createDropdown" data-bs-toggle="dropdown"
+              title="">
+              Create your own <i class="mdi mdi-arrow-down"></i>
+            </button>
+            <ul class="dropdown-menu" aria-labelledby="createDropdown">
+              <li><a class="dropdown-item text-center fs-3" title="Create Keep" href="#" data-bs-toggle="modal"
+                  data-bs-target="#CreateKeepForm">Keep</a></li>
+              <li><a class="dropdown-item text-center fs-3" href="#" title="Create Vault" data-bs-toggle="modal"
+                  data-bs-target="#CreateVaultForm">Vault</a>
+              </li>
+            </ul>
+          </div>
+
         </li>
       </ul>
       <!-- LOGIN COMPONENT HERE -->

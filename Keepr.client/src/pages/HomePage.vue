@@ -2,15 +2,15 @@
   <div class="container">
 
 <!-- //ANCHOR - CREATE A KEEP -->
-    <section class="row">
+    <!-- <section class="row">
       <KeepForm/>
-    </section>
+    </section> -->
 
 
 
 
 <!-- //ANCHOR - Keep Cards -->
-    <section class="row">
+    <section class="masonry">
       <div v-for="keep in keeps" :key="keep.id" class="col-6 col-md-3">
         <KeepCard :keep="keep"/>
       </div>
@@ -26,7 +26,6 @@ import Pop from "../utils/Pop.js";
 import { keepsService } from "../services/KeepsService.js";
 import { AppState } from "../AppState.js";
 import KeepCard from "../components/KeepCard.vue";
-import KeepForm from "../components/KeepForm.vue";
 
 
 export default {
@@ -48,7 +47,7 @@ export default {
             activeKeep: computed(()=> AppState.activeKeep)
         };
     },
-    components: { KeepCard, KeepForm }
+    components: { KeepCard }
 }
 </script>
 
@@ -69,6 +68,24 @@ export default {
       width: 100%;
       object-fit: contain;
       object-position: center;
+    }
+  }
+}
+
+.masonry{
+  columns: 4;
+div {
+    display: inline-block;
+    width: 100%;
+  }
+}
+
+@media screen and (max-width: 769px) {
+  .masonry{
+    columns: 2;
+div {
+      display: inline-block;
+      width: 100%;
     }
   }
 }

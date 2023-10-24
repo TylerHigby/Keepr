@@ -4,6 +4,9 @@
 
 
 
+
+using System.Collections.Immutable;
+
 namespace Keepr.Repositories;
 public class KeepsRepository
 {
@@ -118,11 +121,15 @@ public class KeepsRepository
     return keeps;
   }
 
-
-
-
-
-
+  internal List<Keep> GetProfileKeeps(string profileId)
+  {
+    string sql = @"
+      SELECT
+      *
+      FROM keeps
+      WHERE creatorId = @profileId
+      ;";
+    List<Keep> keeps = _db.Query<Keep>(sql, new { profileId }).ToList();
+    return keeps;
+  }
 }
-
-

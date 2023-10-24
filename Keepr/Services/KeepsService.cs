@@ -33,9 +33,13 @@ public class KeepsService
     return keep;
   }
 
-  internal Keep UpdateKeep(Keep updateData)
+  internal Keep UpdateKeep(Keep updateData, string id)
   {
     Keep original = this.GetKeepById(updateData.Id);
+    if (original.CreatorId != id)
+    {
+      throw new Exception("That isn't your keep!");
+    }
     original.Name = updateData.Name != null ? updateData.Name : original.Name;
     original.Description = updateData.Description != null ? updateData.Description : original.Description;
     original.Img = updateData.Img != null ? updateData.Img : original.Img;
@@ -51,13 +55,16 @@ public class KeepsService
     return keep;
   }
 
-  internal List<Keep> GetKeepsInVault(int vaultId, string userId)
+  // internal List<Keep> GetKeepsInVault(int vaultId, string userId)
+  // {
+  //   Vault vault = _vaultsService.GetVaultById(vaultId, userId);
+  //   List<Keep> keeps = _repo.GetKeepsInVault(vaultId);
+  //   return keeps;
+  // }
+
+  internal List<Keep> GetProfileKeeps(string profileId)
   {
-    Vault vault = _vaultsService.GetVaultById(vaultId, userId);
-    List<Keep> keeps = _repo.GetKeepsInVault(vaultId);
+    List<Keep> keeps = _repo.GetProfileKeeps(profileId);
     return keeps;
   }
-
-
-
 }

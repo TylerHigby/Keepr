@@ -23,6 +23,17 @@ class KeepsService{
     AppState.keeps.push(new Keep(res.data))
   }
 
+  async getKeepsByVaultId(vaultId){
+    const res = await api.get(`api/vaults/${vaultId}/keeps`)
+    AppState.keeps = res.data.map(keep => new Keep(keep))
+  }
+
+  async getKeepsByProfileId(profileId) {
+    const res = await api.get(`api/profiles/${profileId}/keeps`)
+    AppState.keeps = res.data.map(keep => new Keep(keep))
+  }
+
+
   // async deleteKeep(keepId){
   //   const res = await api.delete(`api/keeps/${keepId}`)
   //   logger.log('deleting keep', res.data)

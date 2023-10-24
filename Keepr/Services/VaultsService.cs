@@ -2,6 +2,7 @@
 
 
 
+
 namespace Keepr.Services;
 public class VaultsService
 {
@@ -45,6 +46,11 @@ public class VaultsService
     return original;
   }
 
+  internal void IncreaseVisits(Vault vault)
+  {
+    vault.Visits++;
+    _repo.UpdateVault(vault);
+  }
 
   internal Vault DeleteVault(int vaultId, string id)
   {
@@ -54,12 +60,17 @@ public class VaultsService
     return vault;
   }
 
-  internal void IncreaseVisits(Vault vault)
+
+  internal List<Vault> GetProfileVaults(string profileId, string userId)
   {
-    vault.Visits++;
-    _repo.UpdateVault(vault);
+    List<Vault> vaults = _repo.GetProfileVaults(profileId);
+    vaults = vaults.FindAll(vaults => vaults.isPrivate == false || vaults.isPrivate == true && vaults.CreatorId == userId);
+    return vaults;
   }
 
-
-
+  internal List<Vault> GetAccountVaults(string id)
+  {
+    List<Vault> vaults = _repo.GetAccountVaults(id);
+    return vaults;
+  }
 }

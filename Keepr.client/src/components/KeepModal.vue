@@ -16,18 +16,18 @@
       <div class="modal-body">
         <div class="container-fluid">
           <section v-if="activeKeep" class="row">
-            <div class="col-12 col-md-6">
+            <div class="col-12 col-md-6 p-0">
               <img class="img-fluid" :src="activeKeep.img" alt="">
             </div>
             <div class="col-12 col-md-6 row">
               <p class="col-6 text-center fs-4"><i class="mdi mdi-eye"></i> {{activeKeep.views}}</p>
-              <p class="col-6 text-center fs-4"><i class="mdi mdi-alpha-k-box-outline"></i> {{activeKeep.kept}}</p>
+              <p class="col-6 text-center fs-4"><i class="mdi mdi-alpha-k-circle-outline"></i> {{activeKeep.kept}}</p>
               <h3 class="text-center">{{ activeKeep.name }}</h3>
               <p>{{ activeKeep.description }}</p>
               <p class="col-6 text-center">user vaults</p>
               <div class="col-6 text-center">
                 <img class="profImg" :src="activeKeep.creator.picture" alt="">
-                <p class="col-6">{{ activeKeep.creator.name }}</p>
+                <p>{{ activeKeep.creator.name }}</p>
               </div>
             </div>
           </section>
@@ -48,6 +48,7 @@ import { AppState } from "../AppState.js";
 import Pop from "../utils/Pop.js";
 import { keepsService } from "../services/KeepsService.js";
 import { useRoute, useRouter } from "vue-router";
+import { Modal } from "bootstrap";
 
 export default {
   // props: {id: {type: String, required: true}},
@@ -58,17 +59,18 @@ setup() {
     activeKeep: computed(()=> AppState.activeKeep),
     account: computed(()=> AppState.account),
 
-    // async deleteKeep(){
-    //   try {
-    //     if (await Pop.confirm()){
-    //       await keepsService.deleteKeep(route.params.keepId)
-    //       Pop.success('Keep successfully deleted.')
-    //       router.push({name: "Home"})
-    //     }
-    //   } catch (error) {
-    //     Pop.error(error)
-    //   }
-    // }
+    async deleteKeep(){
+      try {
+        if (await Pop.confirm()){
+          await keepsService.deleteKeep(route.params.keepId)
+          Modal.getOrCreateInstance('#keep-modal').hide()
+          Pop.success('Keep successfully deleted.')
+          // router.push({name: "Home"})
+        }
+      } catch (error) {
+        Pop.error(error)
+      }
+    }
 
 
 
@@ -83,5 +85,15 @@ setup() {
 .profImg{
   border-radius: 50%;
   height: 50px;
+}
+
+/* .mainpic{
+width: 100%;
+object-fit: cover;
+object-position: center;
+} */
+
+.img-fluid{
+  /* border-radius: 25px; */
 }
 </style>
