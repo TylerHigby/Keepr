@@ -9,7 +9,7 @@
 
 
         <!-- //ANCHOR - DELETE BUTTON -->
-        <!-- <button v-show="account.id == activeKeep.creatorId" @click="deleteKeep" class="btn btn-danger"><i class="mdi mdi-trash-can-outline"></i></button> -->
+        <button v-show="account.id == activeKeep.creatorId" @click="deleteKeep" class="btn btn-danger"><i class="mdi mdi-trash-can-outline"></i></button>
 
 
       </div>
@@ -24,10 +24,12 @@
               <p class="col-6 text-center fs-4"><i class="mdi mdi-alpha-k-circle-outline"></i> {{activeKeep.kept}}</p>
               <h3 class="text-center">{{ activeKeep.name }}</h3>
               <p>{{ activeKeep.description }}</p>
-              <p class="col-6 text-center">user vaults</p>
+              <p class="col-6 text-center">user vaults here</p>
               <div class="col-6 text-center">
+<div @click="goToProfile" class="selectable">
                 <img class="profImg" :src="activeKeep.creator.picture" alt="">
                 <p>{{ activeKeep.creator.name }}</p>
+</div>
               </div>
             </div>
           </section>
@@ -43,7 +45,7 @@
 </template>
 
 <script>
-import { computed } from "vue";
+import { computed, popScopeId } from "vue";
 import { AppState } from "../AppState.js";
 import Pop from "../utils/Pop.js";
 import { keepsService } from "../services/KeepsService.js";
@@ -58,6 +60,7 @@ setup() {
   return {
     activeKeep: computed(()=> AppState.activeKeep),
     account: computed(()=> AppState.account),
+    // profile: computed(()=> AppState.profile),
 
     async deleteKeep(){
       try {
@@ -65,14 +68,21 @@ setup() {
           await keepsService.deleteKeep(route.params.keepId)
           Modal.getOrCreateInstance('#keep-modal').hide()
           Pop.success('Keep successfully deleted.')
-          // router.push({name: "Home"})
+          router.push({name: "Home"})
         }
       } catch (error) {
         Pop.error(error)
       }
+    },
+
+    goToProfile(){
+      try {
+        router.push({name: 'Profile', params: {profileId: AppState.activeKeep.creatorId}})
+        Modal.getOrCreateInstance('#keep-modal').hide()
+      } catch (error) {
+        Pop.error(error)
+      }
     }
-
-
 
 
   };

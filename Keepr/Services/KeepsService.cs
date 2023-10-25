@@ -55,16 +55,23 @@ public class KeepsService
     return keep;
   }
 
-  // internal List<Keep> GetKeepsInVault(int vaultId, string userId)
-  // {
-  //   Vault vault = _vaultsService.GetVaultById(vaultId, userId);
-  //   List<Keep> keeps = _repo.GetKeepsInVault(vaultId);
-  //   return keeps;
-  // }
+  internal List<Keep> GetKeepsInVault(int vaultId, string userId)
+  {
+    Vault vault = _vaultsService.GetVaultById(vaultId, userId);
+    List<Keep> keeps = _repo.GetKeepsInVault(vaultId);
+    return keeps;
+  }
 
   internal List<Keep> GetProfileKeeps(string profileId)
   {
     List<Keep> keeps = _repo.GetProfileKeeps(profileId);
     return keeps;
   }
+
+  internal void IncreaseViews(Keep keep)
+  {
+    keep.Views++;
+    _repo.UpdateKeep(keep);
+  }
+
 }

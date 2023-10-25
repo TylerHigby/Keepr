@@ -27,6 +27,11 @@ const routes = [
     name: 'Profile',
     component: loadPage('ProfilePage'),
   },
+  {
+    path: '/vaults/:vaultId',
+    name: 'Vault',
+    component: loadPage('VaultPage'),
+  },
 ]
 
 export const router = createRouter({

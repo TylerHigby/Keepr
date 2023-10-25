@@ -22,26 +22,6 @@ namespace Keepr.Services
       return vaultKeep;
     }
 
-    // internal List<AltKeep> GetKeepsInVault(int vaultId, string id)
-    // {
-    //   Vault vault = _vaultsService.GetVaultById(vaultId, id);
-    //   List<AltKeep> vaultKeeps = _repo.GetKeepsInVault(vaultId);
-    //   return vaultKeeps;
-    // }
-
-
-    // internal List<AccountVaultKeepsViewModel> GetVaultKeepsByVaultId(int vaultId)
-    // {
-    //   List<AccountVaultKeepsViewModel> vaultKeeps = _repo.GetVaultKeepsByVaultId(vaultId);
-    //   return vaultKeeps;
-    // }
-
-
-    // internal void DeleteVaultKeep(int vaultKeepId, string id)
-    // {
-    //   VaultKeep foundVaultKeep = _repo.getVaultKeepById(vaultKeepId);
-    //   int rows = _repo.DeleteVaultKeep(vaultKeepId);
-    // }
 
   }
 }

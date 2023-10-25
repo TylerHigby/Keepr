@@ -31,6 +31,14 @@ async deleteVault(vaultId){
   AppState.vaults.splice(indexToRemove, 1)
 }
 
+async getVaultsByProfileId(profileId){
+  const res = await api.get(`api/profiles/${profileId}/vaults`)
+  logger.log('getting vaults by profile Id', res.data)
+  AppState.vaults = res.data.map(vault => new Vault(vault))
+}
+
+
+
 }
 
 export const vaultsService = new VaultsService

@@ -30,16 +30,17 @@ class KeepsService{
 
   async getKeepsByProfileId(profileId) {
     const res = await api.get(`api/profiles/${profileId}/keeps`)
+    logger.log('getting keeps by profile Id', res.data)
     AppState.keeps = res.data.map(keep => new Keep(keep))
   }
 
 
-  // async deleteKeep(keepId){
-  //   const res = await api.delete(`api/keeps/${keepId}`)
-  //   logger.log('deleting keep', res.data)
-  //   let indexToRemove = AppState.activeKeep.findIndex(keep => keep.id == keepId)
-  //   AppState.activeKeep.splice(indexToRemove, 1)
-  // }
+  async deleteKeep(keepId){
+    const res = await api.delete(`api/keeps/${keepId}`)
+    logger.log('deleting keep', res.data)
+    let indexToRemove = AppState.activeKeep.findIndex(keep => keep.id == keepId)
+    AppState.activeKeep.splice(indexToRemove, 1)
+  }
 
 
 

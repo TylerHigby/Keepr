@@ -84,35 +84,22 @@ public class VaultsController : ControllerBase
 
 
 
-  // [HttpGet("{vaultId}/keeps")]
-  // public async Task<ActionResult<List<Keep>>> GetKeepsInVault(int vaultId)
-  // {
-  //   try
-  //   {
-  //     Account userInfo = await _auth0.GetUserInfoAsync<Account>(HttpContext);
-  //     List<Keep> keeps = _keepsService.GetKeepsInVault(vaultId, userInfo?.Id);
-  //     return Ok(keeps);
-  //   }
-  //   catch (Exception e)
-  //   {
-  //     return BadRequest(e.Message);
-  //   }
-  // }
+  [HttpGet("{vaultId}/keeps")]
+  public async Task<ActionResult<List<Keep>>> GetKeepsInVault(int vaultId)
+  {
+    try
+    {
+      Account userInfo = await _auth0.GetUserInfoAsync<Account>(HttpContext);
+      List<Keep> keeps = _keepsService.GetKeepsInVault(vaultId, userInfo?.Id);
+      return Ok(keeps);
+    }
+    catch (Exception e)
+    {
+      return BadRequest(e.Message);
+    }
+  }
 
-  // [HttpGet("{vaultId}/keeps")]
-  // public async Task<ActionResult<List<AltKeep>>> GetKeepsInVault(int vaultId)
-  // {
-  //   try
-  //   {
-  //     Account userInfo = await _auth0.GetUserInfoAsync<Account>(HttpContext);
-  //     List<AltKeep> vaultKeeps = _vaultKeepsService.GetKeepsInVault(vaultId, userInfo?.Id);
-  //     return Ok(vaultKeeps);
-  //   }
-  //   catch (Exception e)
-  //   {
-  //     return BadRequest(e.Message);
-  //   }
-  // }
+
 
 
 }

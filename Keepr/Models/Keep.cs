@@ -13,7 +13,7 @@ public class Keep
   public Vault Vault { get; set; }
 }
 
-public class AltKeep : Keep
+public class VaultedKeep : Keep
 {
-  public int VaultKeepId { get; set; }
+  public int vaultKeepId { get; set; }
 }
