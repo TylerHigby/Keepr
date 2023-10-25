@@ -71,7 +71,7 @@ export default {
         return {
             profile: computed(() => AppState.activeProfile),
             // account: computed(()=> AppState.account),
-            keeps: computed(() => AppState.keeps),
+            keeps: computed(() => AppState.activeProfileKeeps),
             vaults: computed(() => AppState.vaults)
         };
     },

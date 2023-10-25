@@ -27,7 +27,7 @@ export default {
       appState: computed(() => AppState)
     }
   },
-  components: { Navbar, KeepModal, KeepFormModal }
+  components: { Navbar, KeepModal, KeepFormModal, VaultFormModal }
 }
 </script>
 <style lang="scss">
