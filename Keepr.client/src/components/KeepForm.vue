@@ -33,6 +33,9 @@ const keepData = ref({})
 
 
 async function createKeep(){
+  // TODO grab the profile id from the route
+  // TODO pass id to service for business logic check
+  // route.params.profileId
   try {
     await keepsService.createKeep(keepData.value)
     Modal.getOrCreateInstance('#CreateKeepForm').hide()

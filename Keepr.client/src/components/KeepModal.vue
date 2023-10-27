@@ -9,7 +9,7 @@
 
 
         <!-- //ANCHOR - DELETE BUTTON -->
-        <button v-if="activeKeep != null && account.id == activeKeep.creatorId" @click="deleteKeep" class="btn btn-danger"><i class="mdi mdi-trash-can-outline"></i></button>
+        <button v-if="activeKeep != null && account.id == activeKeep.creatorId" @click="deleteKeep" class="btn btn-danger" title="Delete Keep">Delete<i class="mdi mdi-trash-can-outline"></i></button>
 
 
       </div>

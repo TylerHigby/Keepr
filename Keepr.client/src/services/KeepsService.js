@@ -18,9 +18,10 @@ class KeepsService{
     AppState.activeKeep = keep
   }
 
-  async createKeep(keepData){
+  async createKeep(keepData, profileId){
     const res = await api.post('api/keeps', keepData)
     logger.log('Keep Created', res.data)
+    // TODO if the profileId is there, push into appstate.keeps ELSE push into profilekeeps
     AppState.keeps.push(new Keep(res.data))
   }
 

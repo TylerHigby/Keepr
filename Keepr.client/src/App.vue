@@ -6,7 +6,7 @@
     <router-view />
   </main>
    <footer class="bg-secondary text-white">
-    <h4>Keepr</h4>
+    <p>Keepr</p>
   </footer>
   <KeepModal/>
   <KeepFormModal/>

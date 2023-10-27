@@ -37,7 +37,7 @@
 <section class="row p-3">
   <div class="mb-3 col-12">
     <label for="name" class="form-label">Name:</label>
-    <input v-model="editable.name" class="form-control" type="text" >
+    <input id="name" v-model="editable.name" class="form-control" type="text" >
   </div>
 
   <!-- <div class="mb-3 col-6">
@@ -47,12 +47,12 @@
 
   <div class="mb-3 col-12">
     <label for="picture">Picture:</label>
-    <input v-model="editable.picture" class="form-control" type="text">
+    <input id="picture" v-model="editable.picture" class="form-control" type="text">
   </div>
 
   <div class="mb-3 col-12">
-    <label for="picture">Cover Image:</label>
-    <input v-model="editable.coverImg" class="form-control" type="text">
+    <label for="coverimage">Cover Image:</label>
+    <input id="coverimage" v-model="editable.coverImg" class="form-control" type="text">
   </div>
 </section>
 
@@ -113,7 +113,7 @@ export default {
             // profile: computed(() => AppState.profile),
             account: computed(() => AppState.account),
             keeps: computed(() => AppState.activeProfileKeeps),
-            vaults: computed(() => AppState.activeProfileVaults),
+            vaults: computed(() => AppState.myVaults),
             async editAccount() {
                 try {
                     logger.log('edited info', editable.value);

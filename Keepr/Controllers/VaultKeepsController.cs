@@ -38,6 +38,7 @@ namespace Keepr.Controllers
 
     [Authorize]
     [HttpDelete("{vaultKeepId}")]
+    // ' DELETE api/vaultkeeps/3'
     public async Task<ActionResult<string>> DeleteVaultKeep(int vaultKeepId)
     {
       try

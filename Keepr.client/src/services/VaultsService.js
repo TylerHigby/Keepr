@@ -12,7 +12,7 @@ class VaultsService{
     logger.log('Vault Created', res.data)
     AppState.vaults.push(new Vault(res.data))
     AppState.myVaults.push(new Vault(res.data))
-    AppState.activeProfileVaults.push(new Vault(res.data))
+    // AppState.activeProfileVaults.push(new Vault(res.data))
   }
 
 async getVaultById(vaultId){
@@ -41,11 +41,15 @@ async deleteVault(vaultId){
 async getVaultsByProfileId(profileId){
   const res = await api.get(`api/profiles/${profileId}/vaults`)
   logger.log('getting vaults by profile Id', res.data)
-  AppState.activeProfileVaults = res.data.map(vault => new Vault(vault))
+  // AppState.activeProfileVaults = res.data.map(vault => new Vault(vault))
+  AppState.myVaults = res.data.map(vault => new Vault(vault))
 }
+
+
 
 async createVaultKeep(data){
   await api.post('api/vaultKeeps',data)
+  logger.log('VaultKeep Created', )
 }
 
 async MakePrivateToggle(data, vaultId){

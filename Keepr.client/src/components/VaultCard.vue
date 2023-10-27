@@ -5,6 +5,7 @@
     <div class="card elevation-5 my-3 container p-0">
       <img :src="vault.img" :alt="vault.name" class="vaultCardImage">
       <p class="col-9 vaultName ps-3">{{ vault.name }}</p>
+      <p v-if="vault.isPrivate == true" class="lockStatus" title="Privacy Indicator"><i class="mdi mdi-lock"></i></p>
     </div>
   </section>
 </router-link>
@@ -36,6 +37,13 @@ border-radius: 10px;
   position: absolute;
   bottom: 1px;
   left: 1px;
+  color: white;
+}
+
+.lockStatus{
+  position: absolute;
+  bottom: 1px;
+  right: 10px;
   color: white;
 }
 </style>
