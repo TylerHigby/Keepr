@@ -2,7 +2,7 @@
   <section class="container">
     <div class="text-center">
       <div>
-        <img :src="account.coverImg" alt="" class="p-3">
+        <img :src="account.coverImg" alt="" class="img-fluid p-3">
       </div>
       <img class="rounded" :src="account.picture" alt="" />
     <h1>{{ account.name }}</h1>
@@ -13,25 +13,21 @@
 
 <!-- //SECTION - Vaults  -->
   <h1 class="text-center">Vaults</h1>
-  <section class="row">
+  <section class="masonry">
     <div v-for="vault in vaults" :key="vault.id" class="col-3">
       <VaultCard :vault="vault"/>
     </div>
   </section>
 
 <!-- //SECTION - KEEPS  -->
-    <h1 class="text-center">Keeps</h1>
-
-    <section class="masonry">
-
-      <div v-for="keep in keeps" :key="keep.id">
-        <KeepCard :keep="keep"/>
-      </div>
-      
+<h1 class="text-center">Keeps</h1>
+    <section class="masonry p-3">
+    <div v-for="k in keeps" :key="k.id">
+    <KeepCard :keep="k"/>
+    </div>
     </section>
 
 </section>
-<!-- //SECTION - EDIT ACCOUNT FORM -->
 <section class="col-12 p-5">
 <div class="elevation-5 rounded bg-grey">
     <form @submit.prevent="editAccount">
@@ -69,6 +65,7 @@
 </div>
 
 </section>
+<!-- //SECTION - EDIT ACCOUNT FORM -->
 
 </template>
 
@@ -113,10 +110,10 @@ export default {
         });
         return {
             editable,
-            profile: computed(() => AppState.profile),
+            // profile: computed(() => AppState.profile),
             account: computed(() => AppState.account),
-            keeps: computed(() => AppState.keeps),
-            vaults: computed(() => AppState.vaults),
+            keeps: computed(() => AppState.activeProfileKeeps),
+            vaults: computed(() => AppState.activeProfileVaults),
             async editAccount() {
                 try {
                     logger.log('edited info', editable.value);
@@ -134,7 +131,7 @@ export default {
 }
 </script>
 
-<style scoped>
+<style scoped lang="scss">
 /* img {
   max-width: 100vw;
 } */

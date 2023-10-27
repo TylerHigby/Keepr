@@ -9,7 +9,7 @@
 
 
         <!-- //ANCHOR - DELETE BUTTON -->
-        <button v-show="account.id == activeKeep.creatorId" @click="deleteKeep" class="btn btn-danger"><i class="mdi mdi-trash-can-outline"></i></button>
+        <button v-if="activeKeep != null && account.id == activeKeep.creatorId" @click="deleteKeep" class="btn btn-danger"><i class="mdi mdi-trash-can-outline"></i></button>
 
 
       </div>
@@ -24,7 +24,19 @@
               <p class="col-6 text-center fs-4"><i class="mdi mdi-alpha-k-circle-outline"></i> {{activeKeep.kept}}</p>
               <h3 class="text-center">{{ activeKeep.name }}</h3>
               <p>{{ activeKeep.description }}</p>
-              <p class="col-6 text-center">user vaults here</p>
+              <div class="col-6 text-center">
+                
+                <div class="dropdown">
+            <button v-if="account.id" class="btn btn-success" type="button" id="createDropdown" data-bs-toggle="dropdown"
+              title="">
+              Add to Vault<i class="mdi mdi-arrow-down"></i>
+            </button>
+            <!-- <button v-if="activeVault != null && activeVault.id && account.id == activeVault.creatorId" class="btn btn-danger m-2" @click="removeVaultKeep" >remove from vault <i class="mdi mdi-trash-can"></i></button> -->
+            <ul class="dropdown-menu" aria-labelledby="createDropdown">
+              <li v-for="v in myVaults" :key="v.id" @click="createVaultKeep(v.id)" ><a class="dropdown-item text-center" title="">{{v.name}}</a></li>
+            </ul>
+          </div>
+              </div>
               <div class="col-6 text-center">
 <div @click="goToProfile" class="selectable">
                 <img class="profImg" :src="activeKeep.creator.picture" alt="">
@@ -37,7 +49,7 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
+        <!-- <button type="button" class="btn btn-primary">Save changes</button> -->
       </div>
     </div>
   </div>
@@ -51,6 +63,7 @@ import Pop from "../utils/Pop.js";
 import { keepsService } from "../services/KeepsService.js";
 import { useRoute, useRouter } from "vue-router";
 import { Modal } from "bootstrap";
+import { vaultsService } from "../services/VaultsService.js";
 
 export default {
   // props: {id: {type: String, required: true}},
@@ -59,13 +72,15 @@ setup() {
   const router = useRouter();
   return {
     activeKeep: computed(()=> AppState.activeKeep),
+    activeVault: computed(()=>AppState.activeVault),
     account: computed(()=> AppState.account),
+    myVaults: computed(()=> AppState.myVaults),
     // profile: computed(()=> AppState.profile),
 
     async deleteKeep(){
       try {
         if (await Pop.confirm()){
-          await keepsService.deleteKeep(route.params.keepId)
+          await keepsService.deleteKeep(AppState.activeKeep.id)
           Modal.getOrCreateInstance('#keep-modal').hide()
           Pop.success('Keep successfully deleted.')
           router.push({name: "Home"})
@@ -81,6 +96,17 @@ setup() {
         Modal.getOrCreateInstance('#keep-modal').hide()
       } catch (error) {
         Pop.error(error)
+      }
+    },
+
+    async createVaultKeep(vaultId) {
+      try {
+        const data = {keepId: AppState.activeKeep.id, vaultId: vaultId}
+        await vaultsService.createVaultKeep(data)
+        AppState.activeKeep.kept++
+        Pop.success('Successfully added keep to your vault.')
+      } catch (error) {
+        Pop.toast("You've already added that keep to your vault.")
       }
     }
 

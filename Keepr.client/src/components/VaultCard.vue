@@ -1,12 +1,13 @@
 <template>
-<!-- <router-link :to="{name: 'Vaults', params: {id: vault.id}}"> -->
+<!-- <router-link :to="{name: 'Vault', params: {id: vault.id}}"> -->
+  <router-link :to="{path: `../vaults/${vault.id}`}">
   <section class="selectable">
     <div class="card elevation-5 my-3 container p-0">
       <img :src="vault.img" :alt="vault.name" class="vaultCardImage">
       <p class="col-9 vaultName ps-3">{{ vault.name }}</p>
     </div>
   </section>
-<!-- </router-link> -->
+</router-link>
 </template>
 
 <script>
@@ -19,7 +20,8 @@ export default {
   props: {vault: {type: Vault, required: true}},
 setup(props) {
   return {
-    account: computed(()=>AppState.account)
+    account: computed(()=>AppState.account),
+    // vault: computed(()=> AppState.activeVault)
   };
 },
 };

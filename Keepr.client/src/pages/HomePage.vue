@@ -1,14 +1,6 @@
 <template>
   <div class="container">
 
-<!-- //ANCHOR - CREATE A KEEP -->
-    <!-- <section class="row">
-      <KeepForm/>
-    </section> -->
-
-
-
-
 <!-- //ANCHOR - Keep Cards -->
     <section class="masonry">
       <div v-for="keep in keeps" :key="keep.id" class="col-6 col-md-3">
@@ -26,12 +18,14 @@ import Pop from "../utils/Pop.js";
 import { keepsService } from "../services/KeepsService.js";
 import { AppState } from "../AppState.js";
 import KeepCard from "../components/KeepCard.vue";
+import { vaultsService } from "../services/VaultsService.js";
 
 
 export default {
     setup() {
         onMounted(() => {
             getKeeps();
+            // getMyVaults();
         });
         async function getKeeps() {
             try {
@@ -41,10 +35,22 @@ export default {
                 Pop.error(error);
             }
         }
+
+        async function getMyVaults(){
+          try {
+            await vaultsService.getAccountVaults()
+          } catch (error) {
+            Pop.error(error)
+          }
+        }
+
+
+
         return {
             user: computed(() => AppState.user),
             keeps: computed(() => AppState.keeps),
-            activeKeep: computed(()=> AppState.activeKeep)
+
+            // activeKeep: computed(()=> AppState.activeKeep)
         };
     },
     components: { KeepCard }

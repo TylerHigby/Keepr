@@ -15,6 +15,10 @@ public class VaultsRepository
 
   internal Vault CreateVault(Vault vaultData)
   {
+    if (vaultData.isPrivate == null)
+    {
+      vaultData.isPrivate = false;
+    }
     string sql = @"
         INSERT INTO vaults
         (creatorId, name, description, img, isPrivate)

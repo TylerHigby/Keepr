@@ -1,5 +1,5 @@
 <template>
-  <nav class="navbar navbar-expand-lg navbar-dark bg-dark px-3">
+  <nav class="navbar navbar-expand-lg navbar-dark bg-secondary px-3">
     <router-link class="navbar-brand d-flex" :to="{ name: 'Home' }">
       <div class="d-flex flex-column align-items-center">
         <h1>Keepr</h1>
@@ -14,7 +14,7 @@
         <li>
 <!-- //ANCHOR - CREATE BUTTON -->
           <div class="dropdown">
-            <button class="btn btn-success" type="button" id="createDropdown" data-bs-toggle="dropdown"
+            <button v-if="account.id" class="btn btn-success" type="button" id="createDropdown" data-bs-toggle="dropdown"
               title="">
               Create your own <i class="mdi mdi-arrow-down"></i>
             </button>
@@ -36,10 +36,14 @@
 </template>
 
 <script>
+import { computed } from "vue";
 import Login from './Login.vue';
+import { AppState } from "../AppState.js";
 export default {
   setup() {
-    return {}
+    return {
+      account : computed(()=> AppState.account)
+    }
   },
   components: { Login }
 }

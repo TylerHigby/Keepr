@@ -1,6 +1,8 @@
 
 
 
+using Microsoft.Extensions.Logging;
+
 namespace Keepr.Services;
 public class KeepsService
 {
@@ -55,12 +57,13 @@ public class KeepsService
     return keep;
   }
 
-  internal List<Keep> GetKeepsInVault(int vaultId, string userId)
+  internal List<VaultedKeep> GetKeepsInVault(int vaultId, string userId)
   {
     Vault vault = _vaultsService.GetVaultById(vaultId, userId);
-    List<Keep> keeps = _repo.GetKeepsInVault(vaultId);
-    return keeps;
+    List<VaultedKeep> vaultKeeps = _repo.GetKeepsInVault(vaultId);
+    return vaultKeeps;
   }
+
 
   internal List<Keep> GetProfileKeeps(string profileId)
   {
@@ -68,10 +71,21 @@ public class KeepsService
     return keeps;
   }
 
-  internal void IncreaseViews(Keep keep)
+  // internal void IncreaseViews(Keep keep)
+  // {
+  //   keep.Views++;
+  //   _repo.UpdateKeep(keep);
+  // }
+  internal Keep GetKeepByIdAndIncreaseViews(int keepId, string userId)
   {
-    keep.Views++;
-    _repo.UpdateKeep(keep);
+    Keep keep = GetKeepById(keepId);
+    if (keep.CreatorId != userId)
+    {
+      keep.Views++;
+      _repo.UpdateKeep(keep);
+    }
+    return keep;
+
   }
 
 }

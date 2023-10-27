@@ -26,10 +26,17 @@ import { Modal } from "bootstrap";
 
 const keepData = ref({})
 
+        function resetForm() {
+            keepData.value = { type: '' };
+        }
+
+
+
 async function createKeep(){
   try {
     await keepsService.createKeep(keepData.value)
     Modal.getOrCreateInstance('#CreateKeepForm').hide()
+    resetForm();
     Pop.success("Keep Created!")
   } catch (error) {
     Pop.error(error)

@@ -32,10 +32,16 @@ import { Modal } from "bootstrap";
 
 const vaultData = ref({})
 
+
+function resetForm() {
+            vaultData.value = { type: '' };
+        }
+
 async function createVault(){
   try {
   await vaultsService.createVault(vaultData.value)
   Modal.getOrCreateInstance('#CreateVaultForm').hide()
+  resetForm();
   Pop.success("Vault Created!")
   } catch (error) {
   Pop.error(error)

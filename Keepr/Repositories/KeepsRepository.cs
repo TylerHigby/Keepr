@@ -83,7 +83,8 @@ public class KeepsRepository
         SET
         name = @name,
         description = @description,
-        img = @img
+        img = @img,
+        views = @views
         WHERE id = @id;
         SELECT * FROM keeps WHERE id = @id;
         ;";
@@ -94,32 +95,30 @@ public class KeepsRepository
   internal void DeleteKeep(int keepId)
   {
     string sql = "DELETE FROM keeps WHERE id = @keepId";
-    int rowsAffected = _db.Execute(sql, new { keepId });
+    _db.Execute(sql, new { keepId });
   }
 
-  internal List<Keep> GetKeepsInVault(int vaultId)
+  internal List<VaultedKeep> GetKeepsInVault(int vaultId)
   {
     string sql = @"
         SELECT
+        vk.*,
         keeps.*,
-        keepCreator.*,
-        vaults.*,
-        vaultCreator.*
-        FROM keeps
-        JOIN accounts keepCreator ON keepCreator.id = keeps.creatorId
-        JOIN vaults ON vaults.id = keeps.vaultId
-        JOIN accounts vaultCreator ON vaultCreator.id = vaults.creatorId
-        WHERE keeps.vaultId = @vaultId
+        acc.*
+        FROM vaultkeeps vk
+        JOIN keeps ON vk.keepId = keeps.Id
+        JOIN accounts acc ON acc.id = keeps.creatorId
+        WHERE vk.vaultId = @vaultId
         ;";
-    List<Keep> keeps = _db.Query<Keep, Account, Vault, Account, Keep>(sql, (keep, keepCreator, vault, vaultCreator) =>
+    List<VaultedKeep> keeps = _db.Query<VaultKeep, VaultedKeep, Account, VaultedKeep>(sql, (vaultKeep, vaultedKeep, account) =>
     {
-      keep.Creator = keepCreator;
-      vault.Creator = vaultCreator;
-      keep.Vault = vault;
-      return keep;
+      vaultedKeep.vaultKeepId = vaultKeep.Id;
+      vaultedKeep.Creator = account;
+      return vaultedKeep;
     }, new { vaultId }).ToList();
     return keeps;
   }
+
 
   internal List<Keep> GetProfileKeeps(string profileId)
   {
@@ -127,9 +126,18 @@ public class KeepsRepository
       SELECT
       *
       FROM keeps
+      JOIN accounts ON accounts.id = keeps.creatorId
       WHERE creatorId = @profileId
       ;";
-    List<Keep> keeps = _db.Query<Keep>(sql, new { profileId }).ToList();
+    List<Keep> keeps = _db.Query<Keep, Account, Keep>(
+          sql,
+          (keep, profile) =>
+          {
+            keep.Creator = profile;
+            return keep;
+          }
+          , new { profileId }).ToList();
     return keeps;
   }
 }
+

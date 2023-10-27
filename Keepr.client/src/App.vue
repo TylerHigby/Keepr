@@ -5,8 +5,8 @@
   <main>
     <router-view />
   </main>
-   <footer class="bg-dark text-light">
-    Made with 💖 by CodeWorks
+   <footer class="bg-secondary text-white">
+    <h4>Keepr</h4>
   </footer>
   <KeepModal/>
   <KeepFormModal/>
@@ -14,15 +14,32 @@
 </template>
 
 <script>
-import { computed } from 'vue'
+import { computed, watchEffect } from 'vue'
 import { AppState } from './AppState'
 import Navbar from './components/Navbar.vue'
 import KeepModal from "./components/KeepModal.vue"
 import KeepFormModal from "./components/KeepFormModal.vue"
 import VaultFormModal from "./components/VaultFormModal.vue"
+import Pop from "./utils/Pop.js"
+import { vaultsService } from "./services/VaultsService.js"
 
 export default {
   setup() {
+
+    watchEffect(()=> {
+      if (AppState.account.id){
+        getMyVaults()
+      }
+    })
+
+      async function getMyVaults(){
+        try {
+          await vaultsService.getMyVaults()
+        } catch (error) {
+          Pop.error(error)
+        }
+      }
+
     return {
       appState: computed(() => AppState)
     }

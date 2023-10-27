@@ -1,15 +1,18 @@
 <template>
-  <div class="text-center">
-    <!-- <p>{{profile.coverImage}}</p> -->
-    <!-- <img :src="profile.picture" alt=""> -->
-    <!-- <h1>{{ profile.name }}</h1> -->
-    <p>vaults {{vaults.length}}| keeps {{ keeps.length }}</p>
+  <section class="container">
+  <div class="text-center" v-if="profile">
+    <div>
+    <img class="p-2 img-fluid" :src="profile.coverImg" alt="">
+    </div>
+    <img class="p-2 img-fluid" :src="profile.picture" alt="">
+    <h1>{{ profile.name }}</h1>
   </div>
-
+    <p class="text-center">vaults {{vaults.length}} | keeps {{ keeps.length }}</p>
+</section>
 <!-- //SECTION - Vaults  -->
     <h1 class="text-center">Vaults</h1>
-  <section class="row p-3">
-    <div v-for="vault in vaults" :key="vault.id" class="col-3">
+  <section class="masonry p-3">
+    <div v-for="vault in vaults" :key="vault.id">
       <VaultCard :vault="vault"/>
     </div>
   </section>
@@ -18,7 +21,7 @@
 <!-- //SECTION - KEEPS -->
     <h1 class="text-center">Keeps</h1>
     <section class="masonry p-3">
-    <div v-for="k in keeps" :key="k.id" >
+    <div v-for="k in keeps" :key="k.id">
     <KeepCard :keep="k"/>
     </div>
     </section>
@@ -72,7 +75,7 @@ export default {
             profile: computed(() => AppState.activeProfile),
             // account: computed(()=> AppState.account),
             keeps: computed(() => AppState.activeProfileKeeps),
-            vaults: computed(() => AppState.vaults)
+            vaults: computed(() => AppState.activeProfileVaults)
         };
     },
     components: { KeepCard, VaultCard }
@@ -90,6 +93,8 @@ div {
 }
 
 @media screen and (max-width: 769px) {
+
+
   .masonry{
     columns: 2;
 div {
@@ -98,4 +103,9 @@ div {
     }
   }
 }
+
+.coverImg{
+  width: 300px;
+}
+
 </style>

@@ -21,8 +21,9 @@ class AccountService {
 
 async getProfileById(profileId){
   try {
+    logger.log('getting profile')
     const res = await api.get(`api/profiles/${profileId}`)
-    AppState.profile = res.data
+    AppState.activeProfile = res.data
   } catch (error) {
     Pop.error(error)
   }
